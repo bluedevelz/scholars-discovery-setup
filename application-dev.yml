@@ -1,0 +1,26 @@
+middleware:
+  index:
+    onStartup: false
+
+vivo:
+  triplestore:
+    type: SDB
+    datasourceUrl: jdbc:mysql://localhost:3388/new_dev_vivo?useLegacyDatetimeCode=false&serverTimezone=America/Chicago
+    username: vivodev
+    password: local_vivo_work
+
+spring:
+  data:
+    rest:
+      # CAUTION: leaving this on will permit all requests from localhost, breaks various UI requests and SSR
+      authorize-hal-browser: true
+    solr:
+      host: http://localhost:8983/solr      
+  devtools:
+    restart:
+      enabled: true
+  h2:
+    console:
+      enabled: true
+  profiles:
+    active: dev

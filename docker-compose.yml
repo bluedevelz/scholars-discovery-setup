@@ -1,0 +1,24 @@
+version: '3'
+services:
+  solr:
+    build: ./solr 
+    ports:
+    - "8983:8983"
+  mariadb:
+    image: mariadb
+    ports:
+      - "3388:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=hello
+      - MYSQL_USER=vivodev
+      - MYSQL_PASSWORD=local_vivo_work
+      - MYSQL_DATABASE=new_dev_vivo
+    volumes:
+      - mariadb_data:/var/lib/mysql:z
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+volumes:
+  solr_data:
+  mariadb_data:
+
