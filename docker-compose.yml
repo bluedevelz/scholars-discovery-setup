@@ -3,12 +3,10 @@ services:
   middleware:
     build: .
     volumes:
-     # NOTE: don't actually know where to map volume
      - solr_data:/opt/solr/server/solr:z
      - ./scholars-discovery:/app
-     #https://github.com/chanezon/docker-tips/blob/master/java-build-mount-maven-repo.md
      - maven_data:/root/.m2
-    # mvn spring-boot:run -Dspring-boot.run.profiles=dev -Dspring-boot.run.config.location=../
+     - ./application-dev.yml:/app/application-dev.yml
     command: ["mvn", "spring-boot:run", "-Dspring-boot.run.profiles=dev", "-Dspring-boot.run.config.location=/app/"]
     ports:
      - "9000:9000"

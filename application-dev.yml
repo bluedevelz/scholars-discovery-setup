@@ -1,6 +1,6 @@
 middleware:
   index:
-    onStartup: false
+    onStartup: true
 
 vivo:
   triplestore:
