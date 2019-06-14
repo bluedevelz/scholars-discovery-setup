@@ -1,11 +1,26 @@
 version: '3'
 services:
+  middleware:
+    build: .
+    volumes:
+     # NOTE: don't actually know where to map volume
+     - solr_data:/opt/solr/server/solr:z
+     - ./scholars-discovery:/app
+     #https://github.com/chanezon/docker-tips/blob/master/java-build-mount-maven-repo.md
+     - maven_data:/root/.m2
+    # mvn spring-boot:run -Dspring-boot.run.profiles=dev -Dspring-boot.run.config.location=../
+    command: ["mvn", "spring-boot:run", "-Dspring-boot.run.profiles=dev", "-Dspring-boot.run.config.location=/app/"]
+    ports:
+     - "9000:9000"
+    links:
+     - solr
+     - mariadb
   solr:
     build: ./solr 
     ports:
     - "8983:8983"
   mariadb:
-    image: mariadb
+    image: mariadb:10.2
     ports:
       - "3388:3306"
     environment:
@@ -21,4 +36,5 @@ services:
 volumes:
   solr_data:
   mariadb_data:
+  maven_data:
 

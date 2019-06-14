@@ -5,7 +5,7 @@ middleware:
 vivo:
   triplestore:
     type: SDB
-    datasourceUrl: jdbc:mysql://localhost:3388/new_dev_vivo?useLegacyDatetimeCode=false&serverTimezone=America/Chicago
+    datasourceUrl: jdbc:mysql://mariadb:3306/new_dev_vivo?useLegacyDatetimeCode=false&serverTimezone=America/Chicago
     username: vivodev
     password: local_vivo_work
 
@@ -15,7 +15,7 @@ spring:
       # CAUTION: leaving this on will permit all requests from localhost, breaks various UI requests and SSR
       authorize-hal-browser: true
     solr:
-      host: http://localhost:8983/solr      
+      host: http://solr:8983/solr      
   devtools:
     restart:
       enabled: true
