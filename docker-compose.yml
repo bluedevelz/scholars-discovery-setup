@@ -5,6 +5,7 @@ services:
     volumes:
      - solr_data:/opt/solr/server/solr:z
      - ./scholars-discovery:/app
+     #- ./scholars-discovery/pom.xml:/app/pom.xml
      - maven_data:/root/.m2
      - ./application-dev.yml:/app/application-dev.yml
     command: ["mvn", "spring-boot:run", "-Dspring-boot.run.profiles=dev", "-Dspring-boot.run.config.location=/app/"]
@@ -14,7 +15,7 @@ services:
      - solr
      - mariadb
   solr:
-    build: ./solr 
+    build: ./scholars-discovery/solr 
     ports:
     - "8983:8983"
   mariadb:
@@ -35,4 +36,5 @@ volumes:
   solr_data:
   mariadb_data:
   maven_data:
+  #middleware:
 
