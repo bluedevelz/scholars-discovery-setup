@@ -4,10 +4,8 @@ middleware:
 
 vivo:
   triplestore:
-    type: SDB
-    datasourceUrl: jdbc:mysql://mariadb:3306/new_dev_vivo?useLegacyDatetimeCode=false&serverTimezone=America/Chicago
-    username: vivodev
-    password: local_vivo_work
+    type: TDB
+    directory: data/openvivo
 
 spring:
   data:

@@ -3,13 +3,29 @@
 Instructions:
 
 1) git clone git@github.com:vivo-community/scholars-discovery.git 
-2) `docker-compose up`
+2) git clone git@github.com:vivo-project/sample-data.git
 
-Assumes the scholars-discovery code is checked out into the 
-`scholars-discovery` directory.  
+NOTE: everything assumes the scholars-discovery code is checked out into the 
+`scholars-discovery` directory, and `sample-data` into a
+`sample-data` directory
 
-You can change this to false after the first start up has finished
-(it imports some sample data into a mariadb instance)
+If you have already imported data (see below) can just run:
+
+3) `docker-compose up`
+
+else (import some data)
+
+3) `cd data-importer`
+4) `./gradlew build` (or `gradlew.bat` on Windows)
+5) `./gradlew run --args='openvivo --import'`
+
+That should (after 5-10 minutes) put data in the data-imported/openvivo
+directory.  Then 
+
+6) `docker-compose up`
+
+You can also change this to false after the first start up has finished
+and imported into the index succesfully
 
 ```yaml
 middleware:
