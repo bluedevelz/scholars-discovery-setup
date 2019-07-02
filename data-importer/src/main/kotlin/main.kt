@@ -13,7 +13,6 @@ import org.apache.jena.query.ReadWrite
 import org.apache.jena.query.ResultSet
 import org.apache.jena.util.FileManager
 
-import org.apache.jena.rdf.model.Model
 import org.apache.jena.riot.RDFDataMgr
 
 import org.apache.logging.log4j.LogManager
@@ -39,7 +38,6 @@ class TDBConnector(val base: String) : Closeable {
     fun importDukeData() {
         logger.debug("importing duke data")
         ds.begin(ReadWrite.WRITE)
-        //val model: Model = ds.getDefaultModel()
         val model = ds.getNamedModel("duke")
         RDFDataMgr.read(model, "../content.trig")
         model.close()
@@ -50,7 +48,6 @@ class TDBConnector(val base: String) : Closeable {
     fun importFloridaData() {
         logger.debug("importing florida data")
         ds.begin(ReadWrite.WRITE)
-        //val model: Model = ds.getDefaultModel()
         val model = ds.getNamedModel("florida")
         val fileManager = FileManager()
         fileManager.addLocatorZip("../sample-data/uf/uf01.ttl.zip")
@@ -60,7 +57,7 @@ class TDBConnector(val base: String) : Closeable {
         fileManager.readModel(model, "uf01.ttl")
         fileManager.readModel(model, "uf02.ttl")
         fileManager.readModel(model, "uf03.ttl")
-         
+
         model.close()
         ds.commit()
         ds.end()
@@ -71,7 +68,7 @@ class TDBConnector(val base: String) : Closeable {
         ds.begin(ReadWrite.WRITE)
         // NOTE: I tried ds.getDefaultModel() it never seemed to work
         val model = ds.getNamedModel("openvivo")
-        val fileManager: FileManager = FileManager()
+        val fileManager = FileManager()
         fileManager.addLocatorZip("../sample-data/openvivo/openvivo.ttl.zip")
         fileManager.readModel(model, "openvivo.ttl")
         model.close()
@@ -96,29 +93,6 @@ fun importData(dataset: String) {
         }
     }
 }
-
-/*
-fun importOpenVivoData() {
-    val connector = TDBConnector("openvivo")
-    connector.use { c ->
-        c.importOpenVivoData()
-    }
-}
-
-fun importDukeData() {
-    val connector = TDBConnector("duke")
-    connector.use { c ->
-        c.importDukeData()
-    }
-}
-
-fun importFloridaData() {
-    val connector = TDBConnector("florida")
-    connector.use { c ->
-        c.importFloridaData()
-    }
-}
-*/
 
 // http://xmlns.com/foaf/0.1/Person
 fun listPeople(dataset: String) {
@@ -151,7 +125,7 @@ fun main(args: Array<String>) {
         println("usage ./gradlew run --args='(openvivo|florida|duke) --import'")
     } else if (args.size == 1) {
         listPeople(args[0])
-    } else if (args.size == 2 && args[1] == "--import"){
+    } else if (args.size == 2 && args[1] == "--import") {
         importData(args[0])
     }
 }
