@@ -7,18 +7,18 @@ services:
      #- ./scholars-discovery/pom.xml:/app/pom.xml
      - maven_data:/root/.m2
      - ./application-dev.yml:/app/application-dev.yml
-     - ./data-imported:/app/data
+     - ./data-imported/openvivo:/data
      - ./scholars-discovery:/app
     #command: ["mvn", "spring-boot:run", "-Dspring-boot.run.profiles=dev", "-Dspring-boot.run.config.location=/app/"]
     command: >
         bash -c  "mvn -f /app/pom.xml clean package -Dmaven.test.skip=true
-        && mvn spring-boot:run -Dspring-boot.run.profiles=dev -Dspring-boot.run.config.location=/app/"    
+        && mvn spring-boot:run -Dspring-boot.run.profiles=dev -Dspring-boot.run.config.location=/app/"
     ports:
      - "9000:9000"
     links:
      - solr
   solr:
-    build: ./scholars-discovery/solr 
+    build: ./scholars-discovery/solr
     ports:
     - "8983:8983"
       #data_importer:
