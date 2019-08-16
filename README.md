@@ -6,10 +6,12 @@ Instructions:
 2) git clone https://github.com/vivo-project/sample-data.git
 
 NOTE: everything assumes the scholars-discovery code is checked out into the 
-`scholars-discovery` directory, and `sample-data` into a
-`sample-data` directory
+`scholars-discovery` directory, and `sample-data` into a `sample-data` directory
+(which is the default anyway)
 
-** NOTE: If you have already imported data skip next steps **
+This will run off the `scholars-discovery` master branch.  Right now that might
+not have a grapqhl endpoint - for the time being it may be best to switch to
+the `vstf-sprint6-staging` branch (e.g. `git checkout ...`)
 
 ### import some data
 
@@ -17,16 +19,17 @@ NOTE: everything assumes the scholars-discovery code is checked out into the
 4) `./gradlew build` (or `gradlew.bat` on Windows)
 5) `./gradlew run --args='openvivo --import'`
 
-### or (if already imported data into TDB)
-
-3) `docker-compose up`
-
 That should (after 5-10 minutes) put data in the data-imported/openvivo
 directory.  Then `cd ..` (back up to scholars-discovery-setup directory)
 
 6) `cd ..`
 7) `docker-compose up`
 
+### or (if already imported data into TDB)
+
+3) `docker-compose up`
+
+### 
 You can also change this to false **after the first start up** has finished
 and imported into the index succesfully
 
