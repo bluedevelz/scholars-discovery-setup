@@ -3,7 +3,7 @@
 Instructions:
 
 1) git clone https://github.com:vivo-community/scholars-discovery.git 
-2) git clone https//github.com:vivo-project/sample-data.git
+2) git clone https://github.com:vivo-project/sample-data.git
 
 NOTE: everything assumes the scholars-discovery code is checked out into the 
 `scholars-discovery` directory, and `sample-data` into a
@@ -36,6 +36,44 @@ middleware:
     onStartup: true
 ```
 
+## Sample Query
 
+```graphql
+query {
+  personsFacetedSearch(
+    facets: [{field: "keywords"}],
+    filters: [{field: "preferredTitle", value:"Software Developer"}]
+    paging: { pageSize:100, pageNumber: 0},
+    query: "*",
+  ) {
+    content {
+      id
+      name
+      keywords
+      preferredTitle
+      positions {
+        organizations {
+          label
+        }
+      }
+    }
+    page {
+      totalPages
+      number
+      size
+      totalElements
+    }
+    facets {
+      field
+      entries {
+        content { 
+          value
+          count 
+        }
+      }
+    }
+  }
+}
+```
 
 
