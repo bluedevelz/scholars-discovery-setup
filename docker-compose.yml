@@ -7,7 +7,7 @@ services:
      #- ./scholars-discovery/pom.xml:/app/pom.xml
      - maven_data:/root/.m2
      - ./application-dev.yml:/app/application-dev.yml
-     - ./data-imported/openvivo:/data
+     - ./data-imported:/data
      - ./scholars-discovery:/app
     #command: ["mvn", "spring-boot:run", "-Dspring-boot.run.profiles=dev", "-Dspring-boot.run.config.location=/app/"]
     command: >

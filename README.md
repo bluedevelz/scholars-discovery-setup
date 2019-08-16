@@ -2,25 +2,27 @@
 
 Instructions:
 
-1) git clone git@github.com:vivo-community/scholars-discovery.git 
-2) git clone git@github.com:vivo-project/sample-data.git
+1) git clone https://github.com/vivo-community/scholars-discovery.git 
+2) git clone https://github.com/vivo-project/sample-data.git
 
 NOTE: everything assumes the scholars-discovery code is checked out into the 
 `scholars-discovery` directory, and `sample-data` into a
 `sample-data` directory
 
-If you have already imported data (see below) can just run:
+** NOTE: skip to next #3 if doing this first time **
+
+**If you have already imported data (see below) can just run:**
 
 3) `docker-compose up`
 
-else (import some data)
+**else** (import some data)
 
 3) `cd data-importer`
 4) `./gradlew build` (or `gradlew.bat` on Windows)
 5) `./gradlew run --args='openvivo --import'`
 
 That should (after 5-10 minutes) put data in the data-imported/openvivo
-directory.  Then 
+directory.  Then `cd ..` (back up to scholars-discovery-setup directory)
 
 6) `docker-compose up`
 
@@ -32,7 +34,4 @@ middleware:
   index:
     onStartup: true
 ```
-
-
-
 

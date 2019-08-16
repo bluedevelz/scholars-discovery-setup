@@ -5,7 +5,7 @@ middleware:
 vivo:
   triplestore:
     type: TDB
-    directory: /data
+    directory: /data/openvivo
 
 spring:
   data:
