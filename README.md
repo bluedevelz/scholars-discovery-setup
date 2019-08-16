@@ -3,7 +3,7 @@
 Instructions:
 
 1) git clone https://github.com:vivo-community/scholars-discovery.git 
-2) git clone http:s//github.com:vivo-project/sample-data.git
+2) git clone https//github.com:vivo-project/sample-data.git
 
 NOTE: everything assumes the scholars-discovery code is checked out into the 
 `scholars-discovery` directory, and `sample-data` into a
