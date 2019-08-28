@@ -3,7 +3,6 @@ services:
   middleware:
     build: .
     volumes:
-     - solr_data:/opt/solr/server/solr:z
      #- ./scholars-discovery/pom.xml:/app/pom.xml
      - maven_data:/root/.m2
      - ./application-dev.yml:/app/application-dev.yml
@@ -19,6 +18,8 @@ services:
      - solr
   solr:
     build: ./scholars-discovery/solr
+    volumes:
+     - solr_data:/opt/solr/server/solr:z
     ports:
     - "8983:8983"
       #data_importer:
