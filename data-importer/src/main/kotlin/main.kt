@@ -95,16 +95,6 @@ fun importData(dataset: String) {
     }
 }
 
-/*
-this doesn't work (with florida data):
-
-  <${uri}> core:relatedBy ?authorship .
-  ?authorship vitro:mostSpecificType ?authorshipType .
-  ?authorship core:relates ?publication .
-  ?publication a obo:IAO_0000030 .
-  ?publication rdfs:label ?label .
-
- */
 fun findPublicationsSparql(uri: String): String {
     val pubSparql = """
       PREFIX vivo: <http://vivoweb.org/ontology/core#>
@@ -119,6 +109,25 @@ fun findPublicationsSparql(uri: String): String {
     """
     return pubSparql
 }
+
+fun findPublicationsSparql2(uri: String): String {
+    val pubSparql = """
+      PREFIX vivo: <http://vivoweb.org/ontology/core#>
+      PREFIX obo: <http://purl.obolibrary.org/obo/>
+      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+
+      SELECT * WHERE {
+        <${uri}> vivo:relatedBy ?authorship .
+        ?authorship vitro:mostSpecificType ?authorshipType .
+        ?authorship vivo:relates ?publication .
+        ?publication a obo:IAO_0000030 .
+        ?publication rdfs:label ?title .
+      }
+    """
+    return pubSparql
+}
+
 // http://xmlns.com/foaf/0.1/Person
 fun listPeople(dataset: String) {
     println("trying to run query: $dataset")
@@ -148,7 +157,7 @@ fun listPeople(dataset: String) {
         WHERE {
             ?x a foaf:Person .
         }
-        LIMIT 1000
+        #LIMIT 1000
     """
 
     connector.use { c ->
@@ -158,8 +167,10 @@ fun listPeople(dataset: String) {
         for (r in results) {
             println(r)
             val uri = r.get("x")
-            val pubSparql = findPublicationsSparql(uri.toString())
-
+            val pubSparql = when (dataset) {
+                "florida" -> findPublicationsSparql(uri.toString())
+                else -> findPublicationsSparql2(uri.toString())
+            }
             val qe2 = c.query(pubSparql)
             // need to set this everytime?
             qe2.context.set(TDB.symUnionDefaultGraph, true)
