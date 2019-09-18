@@ -4,6 +4,7 @@ import java.io.Closeable
 
 import org.apache.jena.tdb.TDBFactory
 import org.apache.jena.query.Dataset
+import org.apache.jena.tdb.TDB
 
 import org.apache.jena.query.QueryExecution
 import org.apache.jena.query.QueryExecutionFactory
@@ -96,11 +97,14 @@ fun importData(dataset: String) {
 
 // http://xmlns.com/foaf/0.1/Person
 fun listPeople(dataset: String) {
-    println("trying to run query")
+    println("trying to run query: $dataset")
     val connector = TDBConnector(dataset)
+
+    println("dataset empty?=${connector.ds.isEmpty}")
 
     val sparql = """
         PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+
         SELECT * WHERE {
             ?x a foaf:Person .
             ?x ?p ?y .
@@ -109,6 +113,7 @@ fun listPeople(dataset: String) {
 
     connector.use { c ->
         val qe = c.query(sparql)
+        qe.context.set(TDB.symUnionDefaultGraph, true)
         val results: ResultSet = qe.execSelect()
         ResultSetFormatter.out(results)
     }
