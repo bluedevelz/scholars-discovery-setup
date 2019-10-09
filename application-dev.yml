@@ -9,7 +9,6 @@ middleware:
 
 vivo:
   triplestore:
-    #type: TDB
     type: edu.tamu.scholars.middleware.service.TDBTriplestore
     directory: /data/openvivo
 
