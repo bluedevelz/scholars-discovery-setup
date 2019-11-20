@@ -13,7 +13,7 @@ NOTE: everything assumes the scholars-discovery code is checked out into the
 
 This will run off the `scholars-discovery` master branch.  Right now that might
 not have a grapqhl endpoint - for the time being it may be best to switch to
-the `vstf-sprint6-staging` branch (e.g. `git checkout ...`).  The idea for this
+the `vstf-staging` branch (e.g. `git checkout ...`).  The idea for this
 project is you should be able to use it to run *any* branch in development mode.
 
 ## import some data
