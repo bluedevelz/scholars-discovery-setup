@@ -12,6 +12,7 @@ import org.apache.jena.query.ResultSetFormatter
 
 import org.apache.jena.query.ReadWrite
 import org.apache.jena.query.ResultSet
+import org.apache.jena.riot.Lang
 import org.apache.jena.util.FileManager
 
 import org.apache.jena.riot.RDFDataMgr
@@ -35,6 +36,13 @@ class TDBConnector(val base: String) : Closeable {
         logger.debug("making query")
         return QueryExecutionFactory.create(sparql, ds)
     }
+
+    /*
+    fun describe(sparql: String): QueryExecution {
+        logger.debug("running describe")
+        return QueryExecutionFactory.create(sparql, ds)
+    }
+    */
 
     fun importDukeData() {
         logger.debug("importing duke data")
@@ -186,6 +194,105 @@ fun listPeople(dataset: String) {
     }
 }
 
+fun findOrgSparql(uri: String): String {
+    val orgSparql = """
+      PREFIX vivo: <http://vivoweb.org/ontology/core#>
+      PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX obo: <http://purl.obolibrary.org/obo/>
+      
+      SELECT * WHERE {
+         #<${uri}> vivo:relatedBy ?organization .
+         <${uri}> vivo:relates ?organization .
+         ?organization a foaf:Organization .
+         ?organization rdfs:label ?label .
+      }
+    """
+    return orgSparql
+}
+
+fun describeSparql(uri: String): String {
+    val sparql = """
+        DESCRIBE <${uri}>
+    """
+    return sparql
+}
+
+/*
+uri=http://openvivo.org/a/n10411
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ns2:   <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> .
+@prefix ns1:   <http://vivoweb.org/ontology/core#> .
+@prefix ns4:   <http://www.w3.org/2006/vcard/ns#> .
+@prefix ns3:   <http://purl.org/ontology/bibo/> .
+@prefix ns6:   <http://aims.fao.org/aos/geopolitical.owl#> .
+@prefix ns5:   <http://purl.obolibrary.org/obo/> .
+@prefix ns8:   <http://xmlns.com/foaf/0.1/> .
+@prefix ns7:   <http://vitro.mannlib.cornell.edu/ns/vitro/public#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ns9:   <http://vivo.mydomain.edu/ns#> .
+@prefix xml:   <http://www.w3.org/XML/1998/namespace> .
+@prefix ns11:  <http://www.w3.org/2002/07/owl#> .
+@prefix ns10:  <http://purl.org/dc/terms/> .
+
+<http://openvivo.org/a/n10411>
+        a                     ns1:Position , ns5:BFO_0000001 , ns1:Relationship , ns1:LibrarianPosition , ns11:Thing , ns5:BFO_0000002 , ns5:BFO_0000020 ;
+        rdfs:label            "Head of Digital Collections & Preservation Systems" ;
+        ns2:mostSpecificType  ns1:LibrarianPosition ;
+        ns1:dateTimeInterval  <http://openvivo.org/a/n31076> ;
+        ns1:relates           <http://openvivo.org/a/grid.21729.3f> , <http://openvivo.org/a/orcid0000-0003-2588-3084> , <http://openvivo.org/a/grid.36425.36> .
+
+ */
+fun listRelationships(dataset: String) {
+    println("trying to run query: $dataset")
+    val connector = TDBConnector(dataset)
+
+    println("dataset empty?=${connector.ds.isEmpty}")
+
+    val sparql = """
+        PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+        SELECT ?x
+        WHERE {
+            ?x a vivo:Relationship .
+        }
+        #LIMIT 1000
+    """
+
+    connector.use { c ->
+        val qe = c.query(sparql)
+        qe.context.set(TDB.symUnionDefaultGraph, true)
+        val results: ResultSet = qe.execSelect()
+        for (r in results) {
+            //println(r)
+            val uri = r.get("x")
+            println("uri=${uri}")
+
+
+            val orgSparql = findOrgSparql(uri.toString())
+            val qe2 = c.query(orgSparql)
+            // need to set this everytime?
+            qe2.context.set(TDB.symUnionDefaultGraph, true)
+            val results2: ResultSet = qe2.execSelect()
+            for (p in results2) {
+                println(p)
+                //val pub = p.get("title")
+                //println("____pub->${pub}")
+            }
+
+            /*
+            val qe3 = c.query(describeSparql(uri.toString()))
+            qe3.context.set(TDB.symUnionDefaultGraph, true)
+            val model = qe3.execDescribe()
+            RDFDataMgr.write(System.out, model, Lang.TURTLE)
+
+             */
+        }
+        //ResultSetFormatter.out(results)
+    }
+}
+
 // gradle run --args='foo --bar'
 fun main(args: Array<String>) {
     // args[0] = '(openvivo|florida|duke)'
@@ -196,7 +303,10 @@ fun main(args: Array<String>) {
         println("to import:")
         println("usage ./gradlew run --args='(openvivo|florida|duke) --import'")
     } else if (args.size == 1) {
-        listPeople(args[0])
+        //    <{{uri}}> vivo:relatedBy ?organization .
+        //    ?organization a foaf:Organization .
+        //listPeople(args[0])
+        listRelationships(args[0])
     } else if (args.size == 2 && args[1] == "--import") {
         importData(args[0])
     }
