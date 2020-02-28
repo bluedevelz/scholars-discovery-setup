@@ -54,43 +54,7 @@ middleware:
 ## Sample Query
 
 Once you have running, can go this http://localhost:9000/gui and run GraphQL queries.
-Here is a sample one:
+Sample queries can be found here:
 
-```graphql
-query {
-  personsFacetedSearch(
-    facets: [{field: "keywords"}],
-    filters: [{field: "preferredTitle", value:"Software Developer"}]
-    paging: { pageSize:100, pageNumber: 0},
-    query: "*",
-  ) {
-    content {
-      id
-      name
-      keywords
-      preferredTitle
-      positions {
-        organizations {
-          label
-        }
-      }
-    }
-    page {
-      totalPages
-      number
-      size
-      totalElements
-    }
-    facets {
-      field
-      entries {
-        content { 
-          value
-          count 
-        }
-      }
-    }
-  }
-}
-```
+[Wiki (see sample Graphql queries)](https://github.com/vivo-community/scholars-react/wiki)
 
