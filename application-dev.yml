@@ -1,7 +1,6 @@
 middleware:
   index:
-    #onStartup: true
-    onStartup: false
+    onStartup: true
     allowed-origins:
     - http://localhost:3000
     - http://localhost:4200
@@ -9,7 +8,7 @@ middleware:
 
   triplestore:
     type: edu.tamu.scholars.middleware.service.TDBTriplestore
-    directory: /data/openvivo
+    directory: /data/duke-testdata
 
 spring:
   data:

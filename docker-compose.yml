@@ -7,7 +7,11 @@ services:
      - maven_data:/root/.m2
      - ./application-dev.yml:/app/application-dev.yml
      - ./data-imported:/data
+     - ./data-imported:/app/data-imported #twice mapped
      - ./scholars-discovery:/app
+     - ./sample-data:/app/sample-data  
+     - ./vivo-sample-data-generator:/app/generated-data
+     - ./data-importer:/app/data-importer  
     #command: ["mvn", "spring-boot:run", "-Dspring-boot.run.profiles=dev", "-Dspring-boot.run.config.location=/app/"]
     command: >
         bash -c  "mvn -f /app/pom.xml clean package -Dmaven.test.skip=true
