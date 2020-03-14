@@ -14,8 +14,7 @@ services:
      - ./data-importer:/app/data-importer  
     #command: ["mvn", "spring-boot:run", "-Dspring-boot.run.profiles=dev", "-Dspring-boot.run.config.location=/app/"]
     command: >
-        bash -c  "mvn -f /app/pom.xml clean package -Dmaven.test.skip=true
-        && mvn spring-boot:run -Dspring-boot.run.profiles=dev -Dspring-boot.run.config.location=/app/"
+        bash -c  "/app/data-importer/exec_scholars_discovery.sh"
     ports:
      - "9000:9000"
     links:

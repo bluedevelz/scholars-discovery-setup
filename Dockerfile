@@ -12,6 +12,5 @@ run pip3 install rdflib
 run pip3 install pyyaml
 
 WORKDIR /app
-
 EXPOSE 9000
 

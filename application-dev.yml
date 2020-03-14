@@ -1,6 +1,7 @@
 middleware:
   index:
     onStartup: true
+    clearOnStartup: true
     allowed-origins:
     - http://localhost:3000
     - http://localhost:4200
@@ -9,6 +10,7 @@ middleware:
   triplestore:
     type: edu.tamu.scholars.middleware.service.TDBTriplestore
     directory: /data/duke-testdata
+    create-from-sample-data: false 
 
 spring:
   data:

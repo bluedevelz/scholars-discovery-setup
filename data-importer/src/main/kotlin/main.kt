@@ -85,6 +85,16 @@ class TDBConnector(val base: String) : Closeable {
         ds.end()
     }
 
+    fun importGeneratedData() {
+        logger.debug("importing generated data")
+        ds.begin(ReadWrite.WRITE)
+        val model = ds.getNamedModel("generated")
+        RDFDataMgr.read(model, "../data-imported/sample-data.ttl")
+        model.close()
+        ds.commit()
+        ds.end()
+    }
+
     override fun close() {
         logger.debug("closing TDBConnection")
         ds.close()
@@ -95,10 +105,11 @@ fun importData(dataset: String) {
     val connector = TDBConnector(dataset)
     connector.use { c ->
         when (dataset) {
+            "generated" -> c.importGeneratedData()
             "openvivo" -> c.importOpenVivoData()
             "florida" -> c.importFloridaData()
             "duke" -> c.importDukeData()
-            else -> println("dataset must be one of (openvivo|duke|florida)")
+            else -> println("dataset must be one of (generated|openvivo|duke|florida)")
         }
     }
 }
@@ -298,10 +309,10 @@ fun main(args: Array<String>) {
     // args[0] = '(openvivo|florida|duke)'
     // args[1] = '--import'
     if (args.isEmpty()) {
-        println("Need to at least specify which dataset (openvivo|florida|duke)")
-        println("usage ./gradlew run --args='(openvivo|florida|duke)'")
+        println("Need to at least specify which dataset (generated|openvivo|florida|duke)")
+        println("usage ./gradlew run --args='(generated|openvivo|florida|duke)'")
         println("to import:")
-        println("usage ./gradlew run --args='(openvivo|florida|duke) --import'")
+        println("usage ./gradlew run --args='(generated|openvivo|florida|duke) --import'")
     } else if (args.size == 1) {
         //    <{{uri}}> vivo:relatedBy ?organization .
         //    ?organization a foaf:Organization .

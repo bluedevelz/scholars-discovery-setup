@@ -1,5 +1,8 @@
 scholars-discovery
 sample-data
+vivo-sample-data-generator
 .tool-versions
 data-imported/openvivo
 data-imported/florida
+data-imported/duke-testdata
+data-imported/generated
