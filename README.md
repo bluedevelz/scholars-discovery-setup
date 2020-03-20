@@ -1,9 +1,13 @@
 # Quick runner/wrapper for scholars-discovery project
 
-Instructions:
+## Instructions:
 
 ## If Git source code management is not already installed...
 [Download and install Git](https://git-scm.com/downloads) 
+
+## If Docker is not installed on your system use the information for installing on your platform using the [install documentation linked here](https://docs.docker.com).
+
+## Ensure that [docker-compose is installed](https://docs.docker.com/compose/install/)
 
 ## Clone this repository
 from a command line...
@@ -15,7 +19,7 @@ from a command line...
 from the command line in the scholars-disovery-docker-setup directory created above...
 
 1) git clone https://github.com/mconlon17/vivo-sample-data-generator.git 
-    generated data. May be customized
+    generated data. May be customized by adapting the included python code [Author's README](https://github.com/mconlon17/vivo-sample-data-generator)
 2) git clone https://github.com/vivo-project/sample-data.git
     sample data from open-vivo and Florida state
 3) git clone https://github.com/vivo-community/scholars-discovery.git
@@ -31,7 +35,7 @@ project is you should be able to use it to run *any* branch in development mode.
 
 
 ## Initial setup
-By default, running the 'docker-compose up' will create a new TDB for the openvivo sample data and clear the Solr index before loading. See the infrmation below in XXXX about running GraphQL queries.
+By default, running the 'docker-compose up' will create a new TDB for the openvivo sample data and clear the Solr index before loading. See the infrmation below in the section 'Sample Query' about running GraphQL queries.
 
 ##  After initial execution (re-runs)
 The operation of the setup is primarily controlled by 4 variables in the application-dev.yml file
@@ -61,7 +65,7 @@ NOTE: After the initial run, the values for onStartup, clearOnStartup and create
    middleware.index.clearOnStartup: false
    middleware.triplestore.createFromSampleData: false
 
-2) In the original window, use 'docker-compose up' to start the containers
+3) In the original window, use 'docker-compose up' to start the containers
 NOTE: Required when changing TDB or changing application-dev.yml parameters
 
 ### User supplied TDB
