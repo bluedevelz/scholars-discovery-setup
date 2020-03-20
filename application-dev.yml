@@ -10,7 +10,7 @@ middleware:
   triplestore:
     type: edu.tamu.scholars.middleware.service.TDBTriplestore
     directory: /data/openvivo
-    create-from-sample-data: true
+    createFromSampleData: true
 
 spring:
   data:

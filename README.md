@@ -18,11 +18,11 @@ from a command line...
 ## Import samples git repositories and the scholars-discovery repository into the base folder of this repository
 from the command line in the scholars-disovery-docker-setup directory created above...
 
-1) 'git clone https://github.com/mconlon17/vivo-sample-data-generator.git' 
+1) 'git clone https://github.com/mconlon17/vivo-sample-data-generator.git' <br/>
     generated data. May be customized by adapting the included python code [Author's README](https://github.com/mconlon17/vivo-sample-data-generator/blob/master/README.md)
-2) 'git clone https://github.com/vivo-project/sample-data.git'
-    sample data from open-vivo and Florida state
-3) 'git clone https://github.com/vivo-community/scholars-discovery.git'
+2) 'git clone https://github.com/vivo-project/sample-data.git' <br/>
+    sample data from openvivo and University of Florida
+3) 'git clone https://github.com/vivo-community/scholars-discovery.git' <br/>
     The TDB data extractor, Solr index and GraphQL endpoint 
 
 NOTE: everything assumes the scholars-discovery code is checked out into the 

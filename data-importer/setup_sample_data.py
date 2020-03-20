@@ -34,7 +34,7 @@ try:
   index_on_startup = yaml_data['middleware']['index']['onStartup']
   clear_on_startup = yaml_data['middleware']['index']['clearOnStartup']
   tdb_dir = yaml_data['middleware']['triplestore']['directory']
-  create_from_sample_data = yaml_data['middleware']['triplestore']['create-from-sample-data']
+  create_from_sample_data = yaml_data['middleware']['triplestore']['createFromSampleData']
 
   print(func + ' - Index SOLR DB on startup: ' + str(index_on_startup))
   print(func + ' - TDB directory: ' + tdb_dir)
