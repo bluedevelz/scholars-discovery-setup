@@ -2,9 +2,7 @@
 
 ## Instructions:
 
-## Prerequisites
-
-### If Git source code management is not already installed...
+### If Git source code management is not already installed on your system
 [Download and install Git](https://git-scm.com/downloads) 
 
 ### If Docker is not installed on your system use the information for installing on your platform [here](https://docs.docker.com).
@@ -21,7 +19,7 @@ from a command line...
 from the command line in the scholars-disovery-docker-setup directory created above...
 
 1) git clone https://github.com/mconlon17/vivo-sample-data-generator.git 
-    generated data. May be customized by adapting the included python code [Author's README](https://github.com/mconlon17/vivo-sample-data-generator)
+    generated data. May be customized by adapting the included python code [Author's README](https://github.com/mconlon17/vivo-sample-data-generator/blob/master/README.md)
 2) git clone https://github.com/vivo-project/sample-data.git
     sample data from open-vivo and Florida state
 3) git clone https://github.com/vivo-community/scholars-discovery.git
