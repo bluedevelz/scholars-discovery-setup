@@ -41,16 +41,16 @@ By default, running the 'docker-compose up' will create a new TDB for the openvi
 The operation of the setup is primarily controlled by 4 variables in the application-dev.yml file
 in the base directory of this project (scholars-discovery-docker-setup). The controls affect the following
 features:
-1) Whether the Solr index is re-indexed when the containers are (re-)started
+1) Whether the Solr index is re-indexed when the containers are (re-)started<br/>
    middleware.index.onStartup: true | false
 
-2) Whether the Solr index ls cleared before pulling data from the TDB (either supplied by the user or built from the samples (repos 1 and 2 above in the 'Import samples git repositories' step) - This option should be set for new TDBs, or when changing TDBs
+2) Whether the Solr index ls cleared before pulling data from the TDB (either supplied by the user or built from the samples (repos 1 and 2 above in the 'Import samples git repositories' step) - This option should be set for new TDBs, or when changing TDBs<br/>
    middleware.index.clearOnStartup: true | false
 
-3) Whether to create the TDB from sample data (specific samples are built depending on the TDB name supplied as option 3)
+3) Whether to create the TDB from sample data (specific samples are built depending on the TDB name supplied as option 3)<br/>
    middleware.index.createFromSampleData: true | false
 
-4) The directory containing the TDB (either built or user supplied)
+4) The directory containing the TDB (either built or user supplied)<br/>
   If user-supplied i.e. a TDB generated outside this program, it must be copied into a directory under ./data-imported and the subdirectory should not be named 'generated', 'openvivo', 'florida' or 'duke' as these may be overwritten by the samples if 'middleware.triplestore.createFromSampleData' is set to true.
   NOTE: in the docker container ./data-imported is mapped to /data, so the TDB directory settings are /data/MY_CUSTOM_TDB (for example as a user supplied TDB directory),  /data/generated (generated sample data), /data/florida (University of Florida sample data), or /data/openvivo (OpenVivo sample data). NOTE: /data/duke data is not supplied in the samples. 
   If set to one of the above values /data/generated, /data/openvivo, /data/florida then createFromSampleData will load the specifed samples from either the vivo-sample-data-generator.  If createFromSampleData is set to true for a user supplied TDB, errors will occur.
