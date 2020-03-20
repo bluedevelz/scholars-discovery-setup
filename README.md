@@ -84,7 +84,7 @@ NOTE: Required when changing TDB or changing application-dev.yml parameters
    middleware.index.onStartup: true<br/>
    middleware.index.clearOnStartup: true<br/>
    middleware.triplestore.directory: /data/SAMPLE_DS_NAME <br/>
-     SAMPLE_DS_NAME may be one of openvivo, florida or generated<br/>
+     (SAMPLE_DS_NAME may be one of openvivo, florida or generated)<br/>
    middleware.triplestore.createFromSampleData: false  ## since no sample data is involved and does not need to be loaded<br/>
 3) `docker-compose up`
 
