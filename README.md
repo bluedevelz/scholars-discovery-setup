@@ -2,12 +2,14 @@
 
 ## Instructions:
 
-## If Git source code management is not already installed...
+## Prerequisites
+
+### If Git source code management is not already installed...
 [Download and install Git](https://git-scm.com/downloads) 
 
-## If Docker is not installed on your system use the information for installing on your platform [here](https://docs.docker.com).
+### If Docker is not installed on your system use the information for installing on your platform [here](https://docs.docker.com).
 
-## Ensure that [docker-compose is installed](https://docs.docker.com/compose/install/)
+### Ensure that [docker-compose is installed](https://docs.docker.com/compose/install/)
 
 ## Clone this repository
 from a command line...
