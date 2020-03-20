@@ -53,7 +53,7 @@ features:
 4) The directory containing the TDB (either built or user supplied)<br/>
   If user-supplied i.e. a TDB generated outside this program, it must be copied into a directory under ./data-imported and the subdirectory should not be named 'generated', 'openvivo', 'florida' or 'duke' as these may be overwritten by the samples if 'middleware.triplestore.createFromSampleData' is set to true.
   NOTE: in the docker container ./data-imported is mapped to /data, so the TDB directory settings are /data/MY_CUSTOM_TDB (for example as a user supplied TDB directory),  /data/generated (generated sample data), /data/florida (University of Florida sample data), or /data/openvivo (OpenVivo sample data). NOTE: /data/duke data is not supplied in the samples. <br/>
-  If set to one of the above values /data/generated, /data/openvivo, /data/florida then createFromSampleData will load the specifed samples from either the vivo-sample-data-generator.  If createFromSampleData is set to true for a user supplied TDB, errors will occur.
+  If set to one of the above values /data/generated, /data/openvivo, /data/florida then createFromSampleData will load the specifed samples from either the vivo-sample-data-generator or the predefined samples in vivo-project/sample-data.<br/>  If createFromSampleData is set to true for a user supplied TDB, unspecified errors will occur.
 NOTE: After the initial run, the values for onStartup, clearOnStartup and createFromSampleData should be set to false in most cases unless it's necessary to change TDB.
 
 ##  Re-running and other scenarios
