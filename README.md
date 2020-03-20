@@ -60,31 +60,31 @@ NOTE: After the initial run, the values for onStartup, clearOnStartup and create
 
 ### Re-running the containers
 1) In another command window, change directory to the scholars-discovery-docker-setup directory and use the command 'docker-compose down' to stop the containers currenly running
-2) If no TDB changes are required, ensure the following settings in application-dev.yml:
-   middleware.index.onStartup: false
-   middleware.index.clearOnStartup: false
-   middleware.triplestore.createFromSampleData: false
+2) If no TDB changes are required, ensure the following settings in application-dev.yml:<br/>
+   middleware.index.onStartup: false<br/>
+   middleware.index.clearOnStartup: false<br/>
+   middleware.triplestore.createFromSampleData: false<br/>
 
-3) In the original window, use 'docker-compose up' to start the containers
+3) In the original window, use 'docker-compose up' to start the containers<br/>
 NOTE: Required when changing TDB or changing application-dev.yml parameters
 
 ### User supplied TDB
-1) Stop the containers (docker-compose down)
-2) Put TDB data in the data-imported/MY_TDB_NAME directory (create the directory if necessary).  Then ensure the current directory is the scholars-discovery-setup directory.
-3) Make adjustments to the application-dev.yml to point the system to the target TDB 
-   middleware.index.onStartup: true
-   middleware.index.clearOnStartup: true
-   middleware.triplestore.directory: /data/MY_TDB_NAME
+1) Stop the containers (docker-compose down)<br/>
+2) Put TDB data in the data-imported/MY_TDB_NAME directory (create the directory if necessary).  Then ensure the current directory is the scholars-discovery-setup directory.<br/>
+3) Make adjustments to the application-dev.yml to point the system to the target TDB <br/>
+   middleware.index.onStartup: true<br/>
+   middleware.index.clearOnStartup: true<br/>
+   middleware.triplestore.directory: /data/MY_TDB_NAME<br/>
    middleware.triplestore.createFromSampleData: false  ## since no sample data is involved and does not need to be loaded
 3) `docker-compose up`
 
 ### Creating a TDB from one of the supplied sample datasets
-1) Stop the containers (docker-compose down)
-2) Make adjustments to the application-dev.yml to point the system to the target TDB 
-   middleware.index.onStartup: true
-   middleware.index.clearOnStartup: true
-   middleware.triplestore.directory: /data/SAMPLE_DS_NAME SAMPLE_DS_NAME may be one of openvivo, florida or generated
-   middleware.triplestore.createFromSampleData: false  ## since no sample data is involved and does not need to be loaded
+1) Stop the containers (docker-compose down)<br/>
+2) Make adjustments to the application-dev.yml to point the system to the target TDB <br/>
+   middleware.index.onStartup: true<br/>
+   middleware.index.clearOnStartup: true<br/>
+   middleware.triplestore.directory: /data/SAMPLE_DS_NAME SAMPLE_DS_NAME may be one of openvivo, florida or generated<br/>
+   middleware.triplestore.createFromSampleData: false  ## since no sample data is involved and does not need to be loaded<br/>
 3) `docker-compose up`
 
 
@@ -100,9 +100,21 @@ index every time.
 # file: application-dev.yml
 
 ...
+
 middleware:
   index:
-    onStartup: true # change to false after first run
+    onStartup: true
+    clearOnStartup: true
+    allowed-origins:
+    - http://localhost:3000
+    - http://localhost:4200
+    - http://localhost:9000
+
+  triplestore:
+    type: edu.tamu.scholars.middleware.service.TDBTriplestore
+    directory: /data/openvivo
+    createFromSampleData: true
+
 ...
 
 ```
